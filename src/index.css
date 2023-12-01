@@ -1,0 +1,59 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+img {
+  height: 100%;
+  width: 100%;
+}
+
+.soft_theme {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* ------------flex classes---------------- */
+
+.flexFront {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+}
+
+.flexSB {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flexCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flexGrid {
+  display: grid;
+  place-items: center;
+}
+
+/* ------------flex classes end------------ */
+
+/* -----------utility classes ------------ */
+
+.common_section {
+  margin: 50px 0;
+}
+
+.cursor {
+  cursor: pointer;
+}
+
+.custom_white_button {
+  background-color: white;
+  border: none;
+  color: black;
+  padding: 10px 30px;
+}
