@@ -1,11 +1,8 @@
-import axios from "axios";
+import api from "../../utils/axios";
 
 export const registerUser = async (body) => {
   try {
-    const response = await axios.post(
-      "http://localhost:5000/api/v1/auth/register",
-      body
-    );
+    const response = await api.post("/auth/register", body);
     return response;
   } catch (error) {
     return error;
@@ -14,10 +11,7 @@ export const registerUser = async (body) => {
 
 export const loginUser = async (body) => {
   try {
-    const response = await axios.post(
-      "http://localhost:5000/api/v1/auth/login",
-      body
-    );
+    const response = await api.post("/auth/login", body);
     return response;
   } catch (error) {
     return error;
@@ -25,9 +19,7 @@ export const loginUser = async (body) => {
 };
 export const userById = async (id) => {
   try {
-    const response = await axios.get(
-      `http://localhost:5000/api/v1/auth/user/${id}`
-    );
+    const response = await api.get(`/auth/user/${id}`);
     return response;
   } catch (error) {
     return error;

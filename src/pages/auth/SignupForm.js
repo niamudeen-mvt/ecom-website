@@ -51,48 +51,17 @@ const SignupForm = () => {
     }
   };
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-
-  //   const formErrors = validateForm(user);
-  //   setErrors(formErrors);
-
-  //   let updatedUserList = [];
-  //   let existUser = false;
-
-  //   let dataList = userList ? userList : [];
-  //   updatedUserList = [
-  //     ...dataList,
-  //     {
-  //       ...user,
-  //       id: new Date().getTime(),
-  //     },
-  //   ];
-
-  //   let noErrors = checkIfobjEmpty(formErrors);
-
-  //   if (existUser) {
-  //     console.log("1111111");
-  //     sendNotification("warning", "User Already Existed");
-  //   } else if (noErrors) {
-  //     localStorage.setItem("users", JSON.stringify(updatedUserList));
-  //     console.log("222222");
-  //     sendNotification("success", "User Created Successfully");
-  //     navigate("/login");
-  //   }
-  // };
-
   return (
     <section className="common_section">
       <Container>
-        <div className="flexCenter">
-          <form className=" p-5 soft_theme">
+        <div className="flexCenter" style={{ height: "80vh" }}>
+          <form className="p-5 soft_theme" style={{ width: "50%" }}>
             <h1 className="mb-4 text-center">Signup Form</h1>
             <div className="mb-3">
               <input
                 type="text"
                 autoComplete="off"
-                className="px-2"
+                className="px-2 py-3 rounded border-0 w-100"
                 value={user.username}
                 name="username"
                 onChange={handleChange}
@@ -106,7 +75,7 @@ const SignupForm = () => {
               <input
                 type="text"
                 autoComplete="off"
-                className="px-2"
+                className="px-2 py-3 rounded border-0 w-100"
                 name="email"
                 value={user.email}
                 onChange={handleChange}
@@ -118,7 +87,7 @@ const SignupForm = () => {
               <input
                 type="text"
                 autoComplete="off"
-                className="px-2"
+                className="px-2 py-3 rounded border-0 w-100"
                 name="phone"
                 value={user.phone}
                 onChange={handleChange}
@@ -131,7 +100,7 @@ const SignupForm = () => {
               <input
                 type="password"
                 autoComplete="off"
-                className="px-2"
+                className="px-2 py-3 rounded border-0 w-100"
                 name="password"
                 value={user.password}
                 onChange={handleChange}
@@ -141,11 +110,14 @@ const SignupForm = () => {
             <p className="text-danger">
               {errors?.password ? errors.password : ""}
             </p>
-            <button className="btn btn-dark w-100 mb-3" onClick={handleSubmit}>
+            <button
+              className="btn btn-dark w-100 py-2 mb-3"
+              onClick={handleSubmit}
+            >
               SUBMIT
             </button>
             <Link to="/login">
-              <button className="btn btn-outline-dark w-100">LOGIN</button>
+              <button className="btn btn-outline-dark w-100 py-2">LOGIN</button>
             </Link>
           </form>
         </div>

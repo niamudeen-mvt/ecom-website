@@ -1,13 +1,12 @@
 import React from "react";
-import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Container, Nav, Navbar } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { FiLogOut } from "react-icons/fi";
-import { FaUserCircle } from "react-icons/fa";
 import "./header.css";
 
 const Header = () => {
-  const { userId, logout, currentUser, cartList } = useLocalStorage();
+  const { userId, logout, cartList } = useLocalStorage();
   const route = useLocation()?.pathname;
 
   return (
@@ -56,26 +55,29 @@ const Header = () => {
               </Link>
             )}
             {userId === null ? null : (
-              <NavDropdown
-                title={currentUser?.name?.toUpperCase()}
-                id="basic-nav-dropdown"
-                className="pt-2"
-                style={{ fontSize: "15px" }}
+              <Link
+                to="/user"
+                className={` pt-2 mx-2 ${
+                  route === "/user" || route.split("/")[1] === "product"
+                    ? "active"
+                    : "link"
+                }`}
               >
-                <div className="flexFront mx-0 px-0">
-                  <Link
-                    to="/user"
-                    className={` mb-2 pt-2 ${
-                      route === "/user" ? "active" : "link"
-                    }`}
-                  >
-                    <FaUserCircle className="mx-1" /> Profile
-                  </Link>
-                  <Link to="#" onClick={() => logout()} className="link">
-                    <FiLogOut className="mx-1" /> Logout
-                  </Link>{" "}
-                </div>
-              </NavDropdown>
+                PROFILE
+              </Link>
+            )}
+            {userId === null ? null : (
+              <Link
+                to="#"
+                className={` pt-2 mx-2 ${
+                  route === "/user" || route.split("/")[1] === "product"
+                    ? "active"
+                    : "link"
+                }`}
+                onClick={() => logout()}
+              >
+                <FiLogOut size={24} />
+              </Link>
             )}
           </Nav>
         </Navbar.Collapse>

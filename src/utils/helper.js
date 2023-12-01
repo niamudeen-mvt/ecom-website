@@ -257,3 +257,16 @@ export const list = [
     rating: { rate: 3.6, count: 145 },
   },
 ];
+// useEffect(() => {
+//   list.forEach(async (product) => {
+//     const { id: product_id, category, rating, ...rest } = product;
+//     console.log(product_id, category, rating.rate, rest);
+
+//     let res = await addProduct({
+//       product_id,
+//       category,
+//       rating: rating.rate,
+//       ...rest,
+//     });
+//   });
+// }, []);

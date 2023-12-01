@@ -52,13 +52,13 @@ const LoginForm = () => {
   return (
     <section className="common_section">
       <Container>
-        <div className=" flexCenter">
-          <form className="p-5 soft_theme">
+        <div className="flexCenter" style={{ height: "80vh" }}>
+          <form className="p-5 soft_theme" style={{ width: "50%" }}>
             <h1 className="mb-4 text-center">Login Form</h1>
-            <div className="mb-3">
+            <div className="mb-3 ">
               <input
                 type="text"
-                className="px-2"
+                className="px-2 py-3 rounded border-0 w-100"
                 name="email"
                 value={user.email}
                 onChange={handleChange}
@@ -71,7 +71,7 @@ const LoginForm = () => {
             <div className="mb-3">
               <input
                 type="password"
-                className="px-2"
+                className="px-2 py-3 rounded border-0 w-100"
                 name="password"
                 value={user.password}
                 onChange={handleChange}
@@ -82,11 +82,16 @@ const LoginForm = () => {
             <p className="text-danger">
               {errors?.password ? errors.password : ""}
             </p>
-            <button className="btn btn-dark w-100 mb-3" onClick={handleSubmit}>
+            <button
+              className="btn btn-dark w-100 mb-3 py-2"
+              onClick={handleSubmit}
+            >
               SUBMIT
             </button>
             <Link to="/signup">
-              <button className="btn btn-outline-dark w-100">SIGNUP</button>
+              <button className="btn btn-outline-dark w-100 py-2">
+                SIGNUP
+              </button>
             </Link>
           </form>
         </div>

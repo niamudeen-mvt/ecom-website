@@ -18,12 +18,13 @@ export const useLocalStorage = () => {
   const dispatch = useDispatch();
 
   const storedUserId = localStorage.getItem("userId");
+
   const fetchCartList = async () => {
-    let res = await cartProductsByUserId(userId);
-    if (res?.status === 200) {
-      dispatch(fetchCartProducts(res?.data?.cart));
-    } else {
-      sendNotification("warning", res?.response?.data?.message);
+    if (userId !== null) {
+      let res = await cartProductsByUserId(userId);
+      if (res?.status === 200) {
+        dispatch(fetchCartProducts(res?.data?.cart));
+      }
     }
   };
 
@@ -32,15 +33,16 @@ export const useLocalStorage = () => {
   }, [storedUserId]);
 
   useEffect(() => {
-    console.log("fetching cart list");
     fetchCartList();
   }, [refreshList]);
 
   useEffect(() => {
     (async () => {
-      let response = await userById(userId);
-      if (response?.status === 200) {
-        setCurrentUser(response?.data?.user);
+      if (userId !== null) {
+        let response = await userById(userId);
+        if (response?.status === 200) {
+          setCurrentUser(response?.data?.user);
+        }
       }
     })();
   }, [userId]);

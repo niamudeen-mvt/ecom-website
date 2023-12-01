@@ -20,7 +20,7 @@ export const removeFromCart = async (body) => {
 
 // ===== PRODUCTS =========================
 
-export const addProducts = async (body) => {
+export const addProduct = async (body) => {
   try {
     const response = await api.post("/add-product", body);
     return response;

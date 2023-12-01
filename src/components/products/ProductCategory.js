@@ -1,28 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { filterByCategory } from "../../store/actions/productAction";
+import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import api from "../../utils/axios";
 
-const ProductCategory = () => {
-  const [isActive, setIsActive] = useState(2);
-  const [categoryList, setCategoryList] = useState([]);
+const ProductCategory = ({ setActiveCategory }) => {
+  const [isActive, setIsActive] = useState(0);
 
-  const dispatch = useDispatch();
+  const categoryList = [
+    "men's clothing",
+    "electronics",
+    "jewelery",
+    "women's clothing",
+  ];
 
-  useEffect(() => {
-    (async function () {
-      try {
-        let { data } = await api.get(`/categories`);
-        setCategoryList(data);
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-  }, []);
   const handleCategoryFilter = (category, index) => {
     setIsActive(index);
-    dispatch(filterByCategory(category));
+    setActiveCategory(category);
   };
 
   return (

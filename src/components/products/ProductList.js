@@ -7,7 +7,7 @@ import defaultProductImg from "../../assets/images/photo-1591047139829-d91aecb6c
 import { GoLinkExternal } from "react-icons/go";
 import "./product.css";
 
-const Productlist = () => {
+const Productlist = ({ activeCategory }) => {
   const productList = useSelector((state) => state?.products);
 
   const navigate = useNavigate();
@@ -21,10 +21,14 @@ const Productlist = () => {
     navigate(`/product/${id}`);
   };
 
+  const updatedProductList = productList?.filter((product) => {
+    return product?.category === activeCategory;
+  });
+
   return (
     <Row>
-      {productList?.length
-        ? productList.map((product) => {
+      {updatedProductList?.length
+        ? updatedProductList.map((product) => {
             return (
               <Col key={product?.id} md={4} className="product_card_column">
                 <div className="shadow-sm pb-3 product_card_container ">
