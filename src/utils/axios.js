@@ -5,13 +5,17 @@ const BASE_URL = "https://elegant-fawn-sun-hat.cyclic.app/api/v1";
 
 const api = axios.create({
   baseURL: BASE_URL,
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
 api.interceptors.request.use(
   async function (config) {
-    config.headers["Authorization"] = `Bearer ${sessionStorage.getItem(
-      "access_token"
-    )}`;
+    const access_token = sessionStorage.getItem("access_token");
+    if (config.url !== "/auth/login" && config.url !== "/auth/register") {
+      config.headers["Authorization"] = `Bearer ${access_token}`;
+    }
     return config;
   },
   function (error) {

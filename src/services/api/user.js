@@ -34,18 +34,9 @@ export const userById = async () => {
   }
 };
 
-export const logoutUser = async () => {
+export const refreshToken = async (body) => {
   try {
-    const response = await api.get(LOGOUT_USER);
-    return response;
-  } catch (error) {
-    return error;
-  }
-};
-
-export const refreshToken = async () => {
-  try {
-    const response = await api.get(REFRESH_TOKEN);
+    const response = await api.post(REFRESH_TOKEN, body);
     return response;
   } catch (error) {
     return error;

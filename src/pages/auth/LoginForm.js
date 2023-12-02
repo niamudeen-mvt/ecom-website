@@ -9,8 +9,8 @@ const LoginForm = () => {
   const navigate = useNavigate();
 
   const [user, setUser] = useState({
-    email: "test@gmail.com",
-    password: "123",
+    email: "",
+    password: "",
   });
   const [errors, setErrors] = useState({});
 
@@ -24,9 +24,11 @@ const LoginForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     let res = await loginUser(user);
+
     if (res?.status === 200) {
       sessionStorage.setItem("userId", res?.data?.userId);
       sessionStorage.setItem("access_token", res?.data?.access_token);
+      sessionStorage.setItem("refresh_token", res?.data?.refresh_token);
       sendNotification("success", res?.data?.message);
       navigate("/");
     } else {

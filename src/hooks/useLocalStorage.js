@@ -17,6 +17,8 @@ export const useLocalStorage = () => {
   const dispatch = useDispatch();
 
   const storedUserId = sessionStorage.getItem("userId");
+  // const access_token = sessionStorage.getItem("access_token");
+  const refresh_token = sessionStorage.getItem("refresh_token");
 
   const fetchCartList = async () => {
     if (userId !== null) {
@@ -42,14 +44,16 @@ export const useLocalStorage = () => {
         setCurrentUser(res?.data?.user);
       } else {
         if (res?.response?.data?.message === "jwt expired") {
-          let res = await refreshToken();
+          let res = await refreshToken({
+            refresh_token,
+          });
           if (res?.status === 200) {
-            sessionStorage.setItem("access_token", res?.data?.refresh_token);
+            sessionStorage.setItem("access_token", res?.data?.access_token);
           }
         }
       }
     })();
-  }, []);
+  }, [refresh_token]);
 
   const logout = async () => {
     sessionStorage.removeItem("userId");

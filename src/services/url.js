@@ -11,5 +11,4 @@ export const GET_PRODUCTS = "/products/get";
 export const REGISTER_USER = "/auth/register";
 export const LOGIN_USER = "/auth/login";
 export const REFRESH_TOKEN = "/auth/refresh-token";
-export const LOGOUT_USER = "/auth/logout";
 export const USER_DETAILS = "/auth/user";
