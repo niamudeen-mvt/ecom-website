@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom";
 import Home from "../pages/Home";
 
 const ProtectedRoute = ({ children }) => {
-  const { userId, userList } = useLocalStorage();
+  const { userId } = useLocalStorage();
   return <>{userId === null ? <Home /> : <Outlet>{children}</Outlet>}</>;
 };
 

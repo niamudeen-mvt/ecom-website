@@ -76,7 +76,7 @@ const Header = () => {
                 }`}
                 onClick={() => logout()}
               >
-                <FiLogOut size={24} />
+                <FiLogOut />
               </Link>
             )}
           </Nav>

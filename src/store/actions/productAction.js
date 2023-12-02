@@ -1,8 +1,9 @@
+import { GET_PRODUCTS } from "../../services/url";
 import api from "../../utils/axios";
 
 export const fetchProducts = () => async (dispatch) => {
   try {
-    let response = await api.get("/get-products");
+    let response = await api.get(GET_PRODUCTS);
     if (response.status === 200) {
       dispatch({ type: "FETCH_DATA", payload: response?.data?.products });
     }

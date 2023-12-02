@@ -1,8 +1,14 @@
 import api from "../../utils/axios";
+import {
+  ADD_PRODUCT,
+  ADD_TO_CART,
+  CART_DETAILS,
+  REMOVE_FROM_CART,
+} from "../url";
 
 export const addToCart = async (body) => {
   try {
-    const response = await api.post("/add-to-cart", body);
+    const response = await api.post(ADD_TO_CART, body);
     return response;
   } catch (error) {
     return error;
@@ -11,7 +17,7 @@ export const addToCart = async (body) => {
 
 export const removeFromCart = async (body) => {
   try {
-    const response = await api.post("/remove-from-cart", body);
+    const response = await api.post(REMOVE_FROM_CART, body);
     return response;
   } catch (error) {
     return error;
@@ -22,16 +28,16 @@ export const removeFromCart = async (body) => {
 
 export const addProduct = async (body) => {
   try {
-    const response = await api.post("/add-product", body);
+    const response = await api.post(ADD_PRODUCT, body);
     return response;
   } catch (error) {
     return error;
   }
 };
 
-export const cartProductsByUserId = async (id) => {
+export const cartProducts = async () => {
   try {
-    const response = await api.get(`/cart/${id}`);
+    const response = await api.get(CART_DETAILS);
     return response;
   } catch (error) {
     return error;

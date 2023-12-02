@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { cartProductsByUserId } from "../services/api/products";
+import { cartProducts } from "../services/api/products";
 import { getUserId } from "../utils/helper";
-import { userById } from "../services/api/user";
-import { sendNotification } from "../utils/notifications";
+import { logoutUser, userById } from "../services/api/user";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCartProducts } from "../store/actions/cartActions";
 
@@ -21,7 +20,7 @@ export const useLocalStorage = () => {
 
   const fetchCartList = async () => {
     if (userId !== null) {
-      let res = await cartProductsByUserId(userId);
+      let res = await cartProducts(userId);
       if (res?.status === 200) {
         dispatch(fetchCartProducts(res?.data?.cart));
       }
@@ -38,16 +37,15 @@ export const useLocalStorage = () => {
 
   useEffect(() => {
     (async () => {
-      if (userId !== null) {
-        let response = await userById(userId);
-        if (response?.status === 200) {
-          setCurrentUser(response?.data?.user);
-        }
+      let res = await userById();
+      if (res?.status === 200) {
+        setCurrentUser(res?.data?.user);
       }
     })();
-  }, [userId]);
+  }, []);
 
-  const logout = () => {
+  const logout = async () => {
+    await logoutUser();
     localStorage.removeItem("userId");
     setUserId(null);
     navigate("/");

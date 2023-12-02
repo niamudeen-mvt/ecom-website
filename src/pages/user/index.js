@@ -5,6 +5,7 @@ import Loader from "../../components/loader";
 
 const User = () => {
   const { currentUser } = useLocalStorage();
+
   return (
     <>
       {Object.keys(currentUser).length !== 0 ? (
