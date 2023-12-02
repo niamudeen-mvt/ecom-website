@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
-import { checkIfobjEmpty, validateForm } from "../../utils/helper";
+import {
+  checkIfobjEmpty,
+  errorListtoObj,
+  validateForm,
+} from "../../utils/helper";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { sendNotification } from "../../utils/notifications";
@@ -18,12 +22,6 @@ const SignupForm = () => {
 
   const [errors, setErrors] = useState({});
 
-  useEffect(() => {
-    if (Object.keys(errors).length !== 0) {
-      setErrors(validateForm(user));
-    }
-  }, [user]);
-
   const handleChange = (e) => {
     setUser({
       ...user,
@@ -34,20 +32,13 @@ const SignupForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const formErrors = validateForm(user);
-    setErrors(formErrors);
+    let res = await registerUser(user);
 
-    let noErrors = checkIfobjEmpty(formErrors);
-
-    if (noErrors) {
-      let res = await registerUser(user);
-
-      if (res?.status === 201) {
-        sendNotification("success", res?.data?.message);
-        navigate("/login");
-      } else {
-        sendNotification("warning", res?.response?.data?.message);
-      }
+    if (res?.status === 201) {
+      sendNotification("success", res?.data?.message);
+      navigate("/login");
+    } else {
+      setErrors(errorListtoObj(res?.response?.data?.errors));
     }
   };
 

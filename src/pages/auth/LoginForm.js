@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
-import { checkIfobjEmpty, validateForm } from "../../utils/helper";
+import {
+  checkIfobjEmpty,
+  errorListtoObj,
+  validateForm,
+} from "../../utils/helper";
 import { sendNotification } from "../../utils/notifications";
 import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../../services/api/user";
@@ -9,16 +13,10 @@ const LoginForm = () => {
   const navigate = useNavigate();
 
   const [user, setUser] = useState({
-    email: "test@gmail.com",
-    password: "123",
+    email: "",
+    password: "",
   });
   const [errors, setErrors] = useState({});
-
-  useEffect(() => {
-    if (Object.keys(errors).length !== 0) {
-      setErrors(validateForm(user));
-    }
-  }, [user]);
 
   const handleChange = (e) => {
     setUser({
@@ -29,21 +27,13 @@ const LoginForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const formErrors = validateForm(user);
-    setErrors(formErrors);
-
-    let noErrors = checkIfobjEmpty(formErrors);
-
-    if (noErrors) {
-      let res = await loginUser(user);
-      if (res?.status === 200) {
-        localStorage.setItem("userId", res?.data?.userId);
-        sendNotification("success", res?.data?.message);
-        navigate("/");
-      } else {
-        sendNotification("warning", res?.response?.data?.message);
-      }
+    let res = await loginUser(user);
+    if (res?.status === 200) {
+      localStorage.setItem("userId", res?.data?.userId);
+      sendNotification("success", res?.data?.message);
+      navigate("/");
+    } else {
+      setErrors(errorListtoObj(res?.response?.data?.errors));
     }
   };
 

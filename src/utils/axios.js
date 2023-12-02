@@ -2,8 +2,8 @@ import axios from "axios";
 // import { refreshToken } from "../services/api/user";
 // import { sendNotification } from "./notifications";
 
-// const BASE_URL = "http://localhost:5000/api/v1";
-const BASE_URL = "https://elegant-fawn-sun-hat.cyclic.app/api/v1";
+const BASE_URL = "http://localhost:5000/api/v1";
+// const BASE_URL = "https://elegant-fawn-sun-hat.cyclic.app/api/v1";
 
 const api = axios.create({
   baseURL: BASE_URL,

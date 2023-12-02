@@ -1,10 +1,16 @@
-import { REGISTER } from "redux-persist";
 import api from "../../utils/axios";
-import { LOGIN, LOGOUT, REFRESH_TOKEN, USER_DETAILS } from "../url";
+import {
+  LOGIN_USER,
+  LOGOUT,
+  LOGOUT_USER,
+  REFRESH_TOKEN,
+  REGISTER_USER,
+  USER_DETAILS,
+} from "../url";
 
 export const registerUser = async (body) => {
   try {
-    const response = await api.post(REGISTER, body);
+    const response = await api.post(REGISTER_USER, body);
     return response;
   } catch (error) {
     return error;
@@ -13,7 +19,7 @@ export const registerUser = async (body) => {
 
 export const loginUser = async (body) => {
   try {
-    const response = await api.post(LOGIN, body);
+    const response = await api.post(LOGIN_USER, body);
     return response;
   } catch (error) {
     return error;
@@ -30,7 +36,7 @@ export const userById = async () => {
 
 export const logoutUser = async () => {
   try {
-    const response = await api.get(LOGOUT);
+    const response = await api.get(LOGOUT_USER);
     return response;
   } catch (error) {
     return error;

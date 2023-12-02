@@ -8,8 +8,8 @@ export const ADD_PRODUCT = "/products/add";
 export const GET_PRODUCTS = "/products/get";
 
 // AUTH
-export const REGISTER = "/auth/register";
-export const LOGIN = "/auth/login";
+export const REGISTER_USER = "/auth/register";
+export const LOGIN_USER = "/auth/login";
 export const REFRESH_TOKEN = "/auth/refresh-token";
-export const LOGOUT = "/auth/logout";
+export const LOGOUT_USER = "/auth/logout";
 export const USER_DETAILS = "/auth/user";

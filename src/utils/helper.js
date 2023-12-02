@@ -270,3 +270,29 @@ export const list = [
 //     });
 //   });
 // }, []);
+
+export const errorListtoObj = (errorsList) => {
+  const arr = errorsList?.map((obj) => {
+    return {
+      [obj.path]: obj.msg,
+    };
+  });
+
+  const uniqueObjects = [];
+  const keys = new Set();
+
+  arr.forEach((obj) => {
+    const key = Object.keys(obj)[0];
+    if (!keys.has(key)) {
+      keys.add(key);
+      uniqueObjects.push(obj);
+    }
+  });
+
+  const combinedObject = uniqueObjects.reduce(
+    (result, obj) => ({ ...result, ...obj }),
+    {}
+  );
+
+  return combinedObject;
+};
