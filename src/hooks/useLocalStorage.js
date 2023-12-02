@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { cartProducts } from "../services/api/products";
 import { getUserId } from "../utils/helper";
-import { logoutUser, userById } from "../services/api/user";
+import { logoutUser, refreshToken, userById } from "../services/api/user";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCartProducts } from "../store/actions/cartActions";
 
@@ -16,7 +16,7 @@ export const useLocalStorage = () => {
 
   const dispatch = useDispatch();
 
-  const storedUserId = localStorage.getItem("userId");
+  const storedUserId = sessionStorage.getItem("userId");
 
   const fetchCartList = async () => {
     if (userId !== null) {
@@ -40,13 +40,19 @@ export const useLocalStorage = () => {
       let res = await userById();
       if (res?.status === 200) {
         setCurrentUser(res?.data?.user);
+      } else {
+        if (res?.response?.data?.message === "jwt expired") {
+          let res = await refreshToken();
+          if (res?.status === 200) {
+            sessionStorage.setItem("access_token", res?.data?.refresh_token);
+          }
+        }
       }
     })();
   }, []);
 
   const logout = async () => {
-    await logoutUser();
-    localStorage.removeItem("userId");
+    sessionStorage.removeItem("userId");
     setUserId(null);
     navigate("/");
   };

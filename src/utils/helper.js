@@ -46,7 +46,7 @@ export const checkIfobjEmpty = (obj) => {
 };
 
 export const getUserId = () => {
-  return localStorage.getItem("userId");
+  return sessionStorage.getItem("userId");
 };
 
 export const list = [

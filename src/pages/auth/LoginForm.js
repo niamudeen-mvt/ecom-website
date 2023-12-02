@@ -1,10 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Container } from "react-bootstrap";
-import {
-  checkIfobjEmpty,
-  errorListtoObj,
-  validateForm,
-} from "../../utils/helper";
+import { errorListtoObj } from "../../utils/helper";
 import { sendNotification } from "../../utils/notifications";
 import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../../services/api/user";
@@ -13,8 +9,8 @@ const LoginForm = () => {
   const navigate = useNavigate();
 
   const [user, setUser] = useState({
-    email: "",
-    password: "",
+    email: "test@gmail.com",
+    password: "123",
   });
   const [errors, setErrors] = useState({});
 
@@ -29,7 +25,8 @@ const LoginForm = () => {
     e.preventDefault();
     let res = await loginUser(user);
     if (res?.status === 200) {
-      localStorage.setItem("userId", res?.data?.userId);
+      sessionStorage.setItem("userId", res?.data?.userId);
+      sessionStorage.setItem("access_token", res?.data?.access_token);
       sendNotification("success", res?.data?.message);
       navigate("/");
     } else {
