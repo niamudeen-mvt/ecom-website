@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 export const sendNotification = (type, msg) => {
   if (type === "success") {
     return toast.success(`${msg}`, {
-      position: "top-center",
+      position: "top-right",
       autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -16,7 +16,7 @@ export const sendNotification = (type, msg) => {
     });
   } else if (type === "warning") {
     return toast.warning(`${msg}`, {
-      position: "top-center",
+      position: "top-right",
       autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -27,7 +27,7 @@ export const sendNotification = (type, msg) => {
     });
   } else {
     return toast.error(`${msg}`, {
-      position: "top-center",
+      position: "top-right",
       autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,

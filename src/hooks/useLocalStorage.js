@@ -1,14 +1,11 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { cartProducts } from "../services/api/products";
-import { getUserId } from "../utils/helper";
-import { logoutUser, refreshToken, userById } from "../services/api/user";
+import { userById } from "../services/api/user";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCartProducts } from "../store/actions/cartActions";
 
 export const useLocalStorage = () => {
-  const navigate = useNavigate();
-  const [userId, setUserId] = useState(getUserId());
+  const [userId, setUserId] = useState(null);
   const [currentUser, setCurrentUser] = useState({});
   const [refreshList, setRefreshList] = useState(false);
 
@@ -17,14 +14,13 @@ export const useLocalStorage = () => {
   const dispatch = useDispatch();
 
   const storedUserId = sessionStorage.getItem("userId");
-  // const access_token = sessionStorage.getItem("access_token");
-  const refresh_token = sessionStorage.getItem("refresh_token");
 
   const fetchCartList = async () => {
-    if (userId !== null) {
+    if (userId) {
       let res = await cartProducts(userId);
       if (res?.status === 200) {
-        dispatch(fetchCartProducts(res?.data?.cart));
+        const data = res?.data?.cart || [];
+        dispatch(fetchCartProducts(data));
       }
     }
   };
@@ -35,30 +31,20 @@ export const useLocalStorage = () => {
 
   useEffect(() => {
     fetchCartList();
-  }, [refreshList]);
+  }, [refreshList, userId]);
 
   useEffect(() => {
     (async () => {
       let res = await userById();
       if (res?.status === 200) {
         setCurrentUser(res?.data?.user);
-      } else {
-        if (res?.response?.data?.message === "jwt expired") {
-          let res = await refreshToken({
-            refresh_token,
-          });
-          if (res?.status === 200) {
-            sessionStorage.setItem("access_token", res?.data?.access_token);
-          }
-        }
       }
     })();
-  }, [refresh_token]);
+  }, []);
 
   const logout = async () => {
-    sessionStorage.removeItem("userId");
+    sessionStorage.clear();
     setUserId(null);
-    navigate("/");
   };
 
   return { userId, currentUser, logout, cartList, refreshList, setRefreshList };

@@ -1,10 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Container } from "react-bootstrap";
-import {
-  checkIfobjEmpty,
-  errorListtoObj,
-  validateForm,
-} from "../../utils/helper";
+import { errorListtoObj } from "../../utils/helper";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { sendNotification } from "../../utils/notifications";
@@ -29,6 +25,7 @@ const SignupForm = () => {
     });
   };
 
+  console.log(errors, "errors");
   const handleSubmit = async (e) => {
     e.preventDefault();
 

@@ -1,7 +1,7 @@
 // CART
 export const ADD_TO_CART = "/cart/add";
 export const REMOVE_FROM_CART = "/cart/remove";
-export const CART_DETAILS = "/cart";
+export const CART_DETAILS = "/cart/";
 
 // PRODUCT
 export const ADD_PRODUCT = "/products/add";

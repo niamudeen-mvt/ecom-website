@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Row, Col, Container } from "react-bootstrap";
-import { useSelector } from "react-redux";
 import { BsCart } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { sendNotification } from "../../utils/notifications";
@@ -9,14 +8,9 @@ import { AiOutlineClose } from "react-icons/ai";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { removeFromCart } from "../../services/api/products";
 
-const ProductCard = () => {
+const ProductCard = ({ productList, refreshList, setRefreshList }) => {
   const { userId } = useLocalStorage();
   const [quantities, setQuantities] = useState({});
-  const {
-    cartList: productList,
-    refreshList,
-    setRefreshList,
-  } = useLocalStorage();
 
   const handleDecrement = (id) => {
     // Decrement the quantity for a specific product

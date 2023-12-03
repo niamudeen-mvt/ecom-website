@@ -1,4 +1,5 @@
 import axios from "axios";
+import { refreshToken } from "../services/api/user";
 
 // const BASE_URL = "http://localhost:5000/api/v1";
 const BASE_URL = "https://elegant-fawn-sun-hat.cyclic.app/api/v1";
@@ -23,16 +24,40 @@ api.interceptors.request.use(
   }
 );
 
-// const checkTokenExpiration = () => {
-//   const token = sessionStorage.getItem("access_token");
+let isRefreshing = false;
 
-//   if (token) {
-//     const decodedToken = jwtDecode(token);
-//     if (decodedToken.exp * 1000 < Date.now()) {
-//       return true;
-//     }
-//     return false;
-//   }
-// };
+api.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  async (error) => {
+    const originalRequest = error.config;
+
+    if (error?.response?.status === 401 && !isRefreshing) {
+      isRefreshing = true;
+      try {
+        const refresh_token = sessionStorage.getItem("refresh_token");
+
+        const res = await refreshToken({
+          refresh_token,
+        });
+        if (res?.status === 200) {
+          sessionStorage.setItem("access_token", res?.data?.access_token);
+          // Retry the original request
+
+          originalRequest.headers["Authorization"] =
+            "Bearer " + res.data.access_token;
+          return axios(originalRequest);
+        }
+      } catch (refreshError) {
+        // Handle refresh token failure
+        console.error("Refresh token failed:", refreshError);
+      } finally {
+        isRefreshing = false;
+      }
+    }
+    return Promise.reject(error);
+  }
+);
 
 export default api;

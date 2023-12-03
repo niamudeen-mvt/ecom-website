@@ -68,7 +68,7 @@ const Header = () => {
             )}
             {userId === null ? null : (
               <Link
-                to="#"
+                to="/"
                 className={` pt-2 mx-2 ${
                   route === "/user" || route.split("/")[1] === "product"
                     ? "active"

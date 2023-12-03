@@ -1,12 +1,5 @@
 import api from "../../utils/axios";
-import {
-  LOGIN_USER,
-  LOGOUT,
-  LOGOUT_USER,
-  REFRESH_TOKEN,
-  REGISTER_USER,
-  USER_DETAILS,
-} from "../url";
+import { LOGIN_USER, REFRESH_TOKEN, REGISTER_USER, USER_DETAILS } from "../url";
 
 export const registerUser = async (body) => {
   try {

@@ -35,9 +35,9 @@ export const addProduct = async (body) => {
   }
 };
 
-export const cartProducts = async () => {
+export const cartProducts = async (id) => {
   try {
-    const response = await api.get(CART_DETAILS);
+    const response = await api.get(CART_DETAILS + id);
     return response;
   } catch (error) {
     return error;
