@@ -35,7 +35,7 @@ const Productlist = ({ activeCategory }) => {
                   <div className="product_img_container flexCenter">
                     <img
                       src={product?.image ? product.image : defaultProductImg}
-                      alt="product-image"
+                      alt="product"
                     />
                   </div>
                   <div className="product_details mt-4 px-4 ">
