@@ -7,10 +7,16 @@ import "./productcard.css";
 import { AiOutlineClose } from "react-icons/ai";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { removeFromCart } from "../../services/api/products";
+import { useDispatch, useSelector } from "react-redux";
+import { startLoading, stopLoading } from "../../store/actions/LoadingAction";
+import Loader from "../loader";
 
 const ProductCard = ({ productList, refreshList, setRefreshList }) => {
   const { userId } = useLocalStorage();
   const [quantities, setQuantities] = useState({});
+
+  const isLoading = useSelector((state) => state?.loading);
+  const dispatch = useDispatch();
 
   const handleDecrement = (id) => {
     // Decrement the quantity for a specific product
@@ -29,6 +35,7 @@ const ProductCard = ({ productList, refreshList, setRefreshList }) => {
   };
 
   const handleRemove = async (id) => {
+    dispatch(startLoading(true));
     let res = await removeFromCart({
       userId: userId,
       product_id: id,
@@ -39,6 +46,7 @@ const ProductCard = ({ productList, refreshList, setRefreshList }) => {
     } else {
       sendNotification("warning", res?.response?.data?.message);
     }
+    dispatch(stopLoading(false));
   };
 
   let subtotal = productList?.reduce((total, product) => {
@@ -50,6 +58,7 @@ const ProductCard = ({ productList, refreshList, setRefreshList }) => {
     sendNotification("success", "Thank you for visiting our website");
   };
 
+  if (isLoading) return <Loader />;
   return (
     <Container>
       {productList?.length ? (
@@ -108,7 +117,7 @@ const ProductCard = ({ productList, refreshList, setRefreshList }) => {
           );
         })
       ) : (
-        <div className="flexCenter" style={{ flexDirection: "column" }}>
+        <div className="flexCenter flex-column min-vh-100">
           <BsCart style={{ fontSize: "100px" }} />
           <Link to="/" className="mt-5">
             <button className="btn btn-outline-dark">Go to Shopping</button>
