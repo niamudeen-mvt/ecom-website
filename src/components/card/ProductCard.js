@@ -56,7 +56,7 @@ const ProductCard = ({ productList, refreshList, setRefreshList }) => {
         productList?.map((product) => {
           return (
             <Row
-              className="mb-5 shadow-sm  product_row bg-danger"
+              className="mb-5 shadow-sm  product_row"
               key={product?.product_id}
             >
               <p className="m-0  p-0 px-3 flexCenter">

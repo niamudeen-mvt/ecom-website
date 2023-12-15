@@ -1,8 +1,11 @@
 import axios from "axios";
 import { refreshToken } from "../services/api/user";
 
-const BASE_URL = "http://localhost:5000/api/v1";
-// const BASE_URL = "https://ecommerce-backend-1b57e.web.app/api/v1";
+// development url
+// const BASE_URL = "http://localhost:5000/api/v1";
+
+// production url
+const BASE_URL = "https://ecommerce-backend-jy6t.onrender.com/api/v1";
 
 const api = axios.create({
   baseURL: BASE_URL,
