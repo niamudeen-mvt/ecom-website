@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row, Spinner } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 import { sendNotification } from "../utils/notifications";
 import Loader from "../components/loader";
@@ -7,12 +7,14 @@ import { useLocalStorage } from "../hooks/useLocalStorage";
 import { addToCart } from "../services/api/products";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../store/actions/productAction";
+import { startLoading, stopLoading } from "../store/actions/LoadingAction";
 
 const Product = () => {
   const { id } = useParams();
   const { userId, refreshList, setRefreshList } = useLocalStorage();
 
   const productList = useSelector((state) => state?.products);
+  const isLoading = useSelector((state) => state?.loading);
 
   const product = (productList?.filter(
     (product) => product?.product_id == id
@@ -27,6 +29,7 @@ const Product = () => {
   }, []);
 
   const handleAddtoCart = async (product) => {
+    dispatch(startLoading(true));
     if (userId === null) {
       sendNotification("warning", "Please Login to Proceed");
     } else {
@@ -39,6 +42,7 @@ const Product = () => {
         sendNotification("warning", res?.response?.data?.message);
       }
     }
+    dispatch(stopLoading(false));
   };
 
   return (
@@ -65,12 +69,22 @@ const Product = () => {
                 <h1>{product?.title}</h1>
                 <h3>Rs. {product?.price}</h3>
                 <p>{product?.description}</p>
-                <button
-                  className="btn btn-outline-dark"
-                  onClick={() => handleAddtoCart(product)}
-                >
-                  Add to Cart
-                </button>
+                {isLoading ? (
+                  <button className="btn btn-outline-dark px-5">
+                    <Spinner
+                      animation="border"
+                      role="status"
+                      size="sm"
+                    ></Spinner>
+                  </button>
+                ) : (
+                  <button
+                    className="btn btn-outline-dark"
+                    onClick={() => handleAddtoCart(product)}
+                  >
+                    Add to Cart
+                  </button>
+                )}
                 <Link to="/cart">
                   <button className="btn btn-dark mx-3 ">Go to Cart</button>
                 </Link>
