@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Col, Row } from "react-bootstrap";
 import { fetchProducts } from "../../store/actions/productAction";
 import defaultProductImg from "../../assets/images/photo-1591047139829-d91aecb6caea.avif";
 import { GoLinkExternal } from "react-icons/go";
-import { IoMdAdd } from "react-icons/io";
 import "./product.css";
 
 const Productlist = ({ activeCategory }) => {

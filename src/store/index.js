@@ -1,19 +1,12 @@
 import { applyMiddleware, createStore } from "redux";
 import rootReducer from "./reducers";
 import thunk from "redux-thunk";
-import logger from "redux-logger";
-import { persistStore, persistReducer } from "redux-persist";
-import localStorage from "redux-persist/es/storage";
+import { configureStore } from "@reduxjs/toolkit";
 
-const persistConfig = {
-  key: "ecommerce-cart",
-  storage: localStorage,
-};
+// const store = createStore(rootReducer, applyMiddleware(thunk));
+const store = configureStore({
+  reducer: rootReducer,
+  middleware: () => [thunk],
+});
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
-
-const store = createStore(persistedReducer, applyMiddleware(thunk, logger));
-
-const persistor = persistStore(store);
-
-export { store, persistor };
+export { store };
