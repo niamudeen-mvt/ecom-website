@@ -8,13 +8,11 @@ const Cart = () => {
     setRefreshList,
   } = useLocalStorage();
   return (
-    <section className="common_section">
-      <ProductCard
-        productList={productList}
-        refreshList={refreshList}
-        setRefreshList={setRefreshList}
-      />
-    </section>
+    <ProductCard
+      productList={productList}
+      refreshList={refreshList}
+      setRefreshList={setRefreshList}
+    />
   );
 };
 

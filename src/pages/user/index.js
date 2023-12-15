@@ -7,51 +7,51 @@ const User = () => {
   const { currentUser } = useLocalStorage();
 
   return (
-    <>
+    <section className="bg-body-secondary">
       {Object.keys(currentUser).length !== 0 ? (
-        <section className="common_section">
-          <Container>
-            <form>
-              <div className="mb-3">
-                <label className="mb-3">Username</label>
-                <br />
+        <Container className="min-vh-100 flexCenter">
+          <div className="w-100 flexCenter py-5 shadow-sm bg-white rounded-3">
+            <form className="px-4">
+              <div className="mb-5">
+                <label>Username</label>
                 <input
                   type="text"
                   autoComplete="off"
-                  className="px-2 py-3 rounded border-1"
-                  disabled
+                  spellCheck={"false"}
+                  className="px-2 py-3 border-0 border-bottom bg-transparent w-100 border-black text-secondary text-capitalize"
                   value={currentUser?.username}
+                  disabled
                 />
               </div>
-              <div className="mb-3">
-                <label className="mb-3">Email</label>
-                <br />
+              <div className="mb-5">
+                <label>Email</label>
                 <input
                   type="text"
                   autoComplete="off"
-                  className="px-2 py-3 rounded border-1"
+                  spellCheck={"false"}
+                  className="px-2 py-3 border-0 border-bottom bg-transparent w-100 border-black text-secondary"
                   disabled
                   value={currentUser?.email}
                 />
               </div>
-              <div className="mb-3">
-                <label className="mb-3">Phone</label>
-                <br />
+              <div className="">
+                <label>Phone</label>
                 <input
                   type="text"
                   autoComplete="off"
-                  className="px-2 py-3 rounded border-1"
+                  spellCheck={"false"}
+                  className="px-2 py-3 border-0 border-bottom bg-transparent w-100 border-black text-secondary"
                   disabled
                   value={currentUser?.phone}
                 />
               </div>
             </form>
-          </Container>
-        </section>
+          </div>
+        </Container>
       ) : (
         <Loader />
       )}
-    </>
+    </section>
   );
 };
 
