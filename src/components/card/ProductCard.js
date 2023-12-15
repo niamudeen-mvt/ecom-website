@@ -56,7 +56,7 @@ const ProductCard = ({ productList, refreshList, setRefreshList }) => {
         productList?.map((product) => {
           return (
             <Row
-              className="mb-5 shadow-sm  product_row"
+              className="mb-5 shadow-sm  product_row bg-danger"
               key={product?.product_id}
             >
               <p className="m-0  p-0 px-3 flexCenter">
@@ -68,7 +68,7 @@ const ProductCard = ({ productList, refreshList, setRefreshList }) => {
               <Col className="flexGrid col-4">
                 <img
                   src={product?.image}
-                  alt="Product-image"
+                  alt="Product"
                   className="img-fluid product_img"
                 />
               </Col>

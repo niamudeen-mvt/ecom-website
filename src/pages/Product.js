@@ -46,40 +46,38 @@ const Product = () => {
       {Object.keys(product).length === 0 ? (
         <Loader />
       ) : (
-        <section className="common_section">
-          <Container>
-            <Row key={product?.id}>
-              <Col className="col-10 col-md-6 m-auto mb-5 ">
-                <div className="flexCenter">
-                  <img
-                    src={product?.image}
-                    alt="product-img"
-                    style={{ width: "80%" }}
-                  />
-                </div>
-              </Col>
-              <Col className="col-10 col-md-6 ">
-                <div>
-                  <h4 className="text-uppercase text-black-50">
-                    {product?.category}
-                  </h4>
-                  <h1>{product?.title}</h1>
-                  <h3>Rs. {product?.price}</h3>
-                  <p>{product?.description}</p>
-                  <button
-                    className="btn btn-outline-dark"
-                    onClick={() => handleAddtoCart(product)}
-                  >
-                    Add to Cart
-                  </button>
-                  <Link to="/cart">
-                    <button className="btn btn-dark mx-3 ">Go to Cart</button>
-                  </Link>
-                </div>
-              </Col>
-            </Row>
-          </Container>
-        </section>
+        <Container className="min-vh-100 flexCenter">
+          <Row key={product?.id} className="">
+            <Col className="col-10 col-md-6 m-auto mb-5">
+              <div className="flexCenter">
+                <img
+                  src={product?.image}
+                  alt="product-img"
+                  style={{ width: "80%" }}
+                />
+              </div>
+            </Col>
+            <Col className="col-10 col-md-6 ">
+              <div>
+                <h4 className="text-uppercase text-black-50">
+                  {product?.category}
+                </h4>
+                <h1>{product?.title}</h1>
+                <h3>Rs. {product?.price}</h3>
+                <p>{product?.description}</p>
+                <button
+                  className="btn btn-outline-dark"
+                  onClick={() => handleAddtoCart(product)}
+                >
+                  Add to Cart
+                </button>
+                <Link to="/cart">
+                  <button className="btn btn-dark mx-3 ">Go to Cart</button>
+                </Link>
+              </div>
+            </Col>
+          </Row>
+        </Container>
       )}
     </>
   );

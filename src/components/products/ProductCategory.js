@@ -26,7 +26,7 @@ const ProductCategory = ({ setActiveCategory }) => {
                 <Col className="d-flex justify-content-center mb-3">
                   <button
                     key={category}
-                    className={`w-100 mx-3 px-5 btn ${
+                    className={`w-100 mx-3 px-5 btn text-capitalize ${
                       isActive === index ? "btn-dark" : "btn-outline-dark"
                     }`}
                     onClick={() => handleCategoryFilter(category, index)}
