@@ -57,11 +57,7 @@ const Header = () => {
             {userId === null ? null : (
               <Link
                 to="/user"
-                className={` pt-2 mx-2 ${
-                  route === "/user" || route.split("/")[1] === "product"
-                    ? "active"
-                    : "link"
-                }`}
+                className={`pt-2 mx-2 ${route === "/user" ? "active" : "link"}`}
               >
                 PROFILE
               </Link>
@@ -70,9 +66,7 @@ const Header = () => {
               <Link
                 to="/"
                 className={` pt-2 mx-2 ${
-                  route === "/user" || route.split("/")[1] === "product"
-                    ? "active"
-                    : "link"
+                  route === "/user" ? "active" : "link"
                 }`}
                 onClick={() => logout()}
               >

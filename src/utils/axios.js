@@ -2,10 +2,10 @@ import axios from "axios";
 import { refreshToken } from "../services/api/user";
 
 // development url
-// const BASE_URL = "http://localhost:5000/api/v1";
+const BASE_URL = "http://localhost:5000/api/v1";
 
 // production url
-const BASE_URL = "https://ecommerce-backend-jy6t.onrender.com/api/v1";
+// const BASE_URL = "https://ecommerce-backend-jy6t.onrender.com/api/v1";
 
 const api = axios.create({
   baseURL: BASE_URL,
@@ -46,14 +46,12 @@ api.interceptors.response.use(
         });
         if (res?.status === 200) {
           sessionStorage.setItem("access_token", res?.data?.access_token);
-          // Retry the original request
 
           originalRequest.headers["Authorization"] =
             "Bearer " + res.data.access_token;
           return axios(originalRequest);
         }
       } catch (refreshError) {
-        // Handle refresh token failure
         console.error("Refresh token failed:", refreshError);
       } finally {
         isRefreshing = false;

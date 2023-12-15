@@ -42,18 +42,6 @@ const Productlist = ({ activeCategory }) => {
                     <h4>{product?.title?.substring(0, 40)}</h4>
                     <p>Rs. {product?.price}</p>
                   </div>
-                  {/* <div
-                    className="p-2 bg-black rounded-1 cursor"
-                    style={{
-                      position: "absolute",
-                      right: "30px",
-                      bottom: "30px",
-                      boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
-                    }}
-                  >
-                    <IoMdAdd size={22} color="white" />
-                  </div> */}
-
                   <div className="image_overlay flexGrid">
                     <GoLinkExternal
                       className="go_to_link cursor"

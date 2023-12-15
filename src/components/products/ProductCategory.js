@@ -23,10 +23,10 @@ const ProductCategory = ({ setActiveCategory }) => {
         {categoryList?.length
           ? categoryList.map((category, index) => {
               return (
-                <Col className="d-flex justify-content-center mb-3">
+                <Col className="d-flex justify-content-center mb-3" key={index}>
                   <button
                     key={category}
-                    className={`w-100 mx-3 px-5 btn text-capitalize ${
+                    className={`w-100 mx-3 py-3 px-5 btn text-capitalize ${
                       isActive === index ? "btn-dark" : "btn-outline-dark"
                     }`}
                     onClick={() => handleCategoryFilter(category, index)}
