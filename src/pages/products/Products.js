@@ -3,7 +3,7 @@ import { Container } from "react-bootstrap";
 import "./product.css";
 import ProductCategory from "./ProductCategory";
 import Productlist from "./ProductList";
-import HeroSection from "../hero-section";
+import HeroSection from "../../components/hero-section";
 
 const Products = () => {
   const [activeCategory, setActiveCategory] = useState("All");

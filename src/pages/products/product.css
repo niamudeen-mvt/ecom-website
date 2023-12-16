@@ -22,7 +22,3 @@
 .product_card_container:hover .product__overlay {
   opacity: 1;
 }
-
-.product_title {
-  margin: 100px 0;
-}

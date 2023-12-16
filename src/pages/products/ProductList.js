@@ -6,7 +6,7 @@ import { fetchProducts } from "../../store/actions/productAction";
 import defaultProductImg from "../../assets/images/photo-1591047139829-d91aecb6caea.avif";
 import "./product.css";
 import { IoSearch } from "react-icons/io5";
-import Loader from "../Loader";
+import Loader from "../../components/Loader";
 
 const Productlist = ({ activeCategory }) => {
   const productList = useSelector((state) => state?.products);

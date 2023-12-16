@@ -3,12 +3,12 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Header from "./layout/header/Header";
 import Cart from "./pages/cart/Cart";
-import Product from "./pages/Product";
 import SignupForm from "./pages/auth/SignupForm";
 import LoginForm from "./pages/auth/LoginForm";
-import { ToastContainerNotification } from "./utils/notifications";
 import User from "./pages/user";
+import SingleProduct from "./pages/products/SingleProduct";
 import ProtectedRoute from "./auth/ProtectedRoute";
+import { ToastContainerNotification } from "./utils/notifications";
 
 const App = () => {
   return (
@@ -17,7 +17,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/product/:id" element={<Product />} />
+        <Route path="/product/:id" element={<SingleProduct />} />
         <Route path="" element={<ProtectedRoute />}>
           <Route path="user" element={<User />} />
         </Route>
