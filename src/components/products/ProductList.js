@@ -4,11 +4,12 @@ import { useNavigate } from "react-router-dom";
 import { Col, Row } from "react-bootstrap";
 import { fetchProducts } from "../../store/actions/productAction";
 import defaultProductImg from "../../assets/images/photo-1591047139829-d91aecb6caea.avif";
-import { GoLinkExternal } from "react-icons/go";
 import "./product.css";
+import { IoSearch } from "react-icons/io5";
 
 const Productlist = ({ activeCategory }) => {
   const productList = useSelector((state) => state?.products);
+  console.log(activeCategory);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -22,7 +23,9 @@ const Productlist = ({ activeCategory }) => {
   };
 
   const updatedProductList = productList?.filter((product) => {
-    return product?.category === activeCategory;
+    return activeCategory === "All"
+      ? product
+      : product?.category === activeCategory;
   });
 
   return (
@@ -30,23 +33,40 @@ const Productlist = ({ activeCategory }) => {
       {updatedProductList?.length
         ? updatedProductList.map((product) => {
             return (
-              <Col key={product?.id} md={4} className="product_card_column">
-                <div className="shadow-sm pb-3 product_card_container cursor">
+              <Col
+                key={product?.id}
+                xs={12}
+                sm={6}
+                md={4}
+                xl={3}
+                className="mb-4"
+              >
+                <div className="product_card_container bg-body-tertiary cursor h-100 position-relative overflow-hidden">
                   <div className="product_img_container flexCenter">
                     <img
                       src={product?.image ? product.image : defaultProductImg}
                       alt="product"
+                      className="w-50 h-50"
                     />
                   </div>
-                  <div className="product_details mt-4 px-4 ">
-                    <h4>{product?.title?.substring(0, 40)}</h4>
-                    <p>Rs. {product?.price}</p>
+                  <div className="product_details mt-4 px-4">
+                    <p className="fw-medium">
+                      {product?.title?.substring(0, 40)}
+                    </p>
+                    <p>${product?.price}</p>
                   </div>
-                  <div className="image_overlay flexGrid">
-                    <GoLinkExternal
-                      className="go_to_link cursor"
+
+                  <div className="position-absolute top-0 start-0 w-100 h-100 product__overlay flexCenter">
+                    <button
+                      className="rounded-circle border-0 bg-body-tertiary search__icon"
+                      style={{
+                        height: "40px",
+                        width: "40px",
+                      }}
                       onClick={() => handleGoTo(product?.product_id)}
-                    />
+                    >
+                      <IoSearch color="black" />
+                    </button>
                   </div>
                 </div>
               </Col>

@@ -10,6 +10,7 @@ import { removeFromCart } from "../../services/api/products";
 import { useDispatch, useSelector } from "react-redux";
 import { startLoading, stopLoading } from "../../store/actions/LoadingAction";
 import Loader from "../loader";
+import { loadStripe } from "@stripe/stripe-js";
 
 const ProductCard = ({ productList, refreshList, setRefreshList }) => {
   const { userId } = useLocalStorage();
@@ -54,8 +55,40 @@ const ProductCard = ({ productList, refreshList, setRefreshList }) => {
     return total;
   }, 0);
 
-  const handleProceed = () => {
-    sendNotification("success", "Thank you for visiting our website");
+  // const handleProceed = () => {
+  //   sendNotification("success", "Thank you for visiting our website");
+  // };
+
+  // payment integration
+  const makePayment = async () => {
+    const stripe = await loadStripe(
+      "pk_test_51ONYEWSGzoF127mQFjA5m9xnAUvNreO2aXxQlVIh3DCWWHBoQdIDorsY8U3fF2q0tacPZCXWSEskF1NgJvM4nyJg00i66RahPn"
+    );
+
+    const body = {
+      products: productList,
+    };
+    const headers = {
+      "Content-Type": "application/json",
+    };
+    const response = await fetch(
+      "http://localhost:5000/create-checkout-session",
+      {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify(body),
+      }
+    );
+
+    const session = await response.json();
+
+    const result = stripe.redirectToCheckout({
+      sessionId: session.id,
+    });
+
+    if (result.error) {
+      console.log(result.error);
+    }
   };
 
   if (isLoading) return <Loader />;
@@ -137,7 +170,8 @@ const ProductCard = ({ productList, refreshList, setRefreshList }) => {
       ) : null}
       {productList?.length === 0 ? null : (
         <div className="text-center">
-          <button className="btn btn-outline-dark" onClick={handleProceed}>
+          <button className="btn btn-outline-dark" onClick={makePayment}>
+            {/* <button className="btn btn-outline-dark" onClick={handleProceed}> */}
             Proceed To Checkout
           </button>
         </div>

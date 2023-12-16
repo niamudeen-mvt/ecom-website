@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Col, Row } from "react-bootstrap";
+import { Col, Dropdown, Row } from "react-bootstrap";
 
 const ProductCategory = ({ setActiveCategory }) => {
-  const [isActive, setIsActive] = useState(0);
+  const [isActive, setIsActive] = useState(null);
 
   const categoryList = [
+    "All",
     "men's clothing",
     "electronics",
     "jewelery",
@@ -17,9 +18,36 @@ const ProductCategory = ({ setActiveCategory }) => {
   };
 
   return (
-    <div className="text-center product_title">
+    <div className="text-center mb-5">
       <h1 className="mb-5">Latest Products</h1>
-      <Row>
+      <div className="d-flex justify-content-end">
+        <Dropdown>
+          <Dropdown.Toggle
+            variant="light"
+            id="dropdown-basic"
+            className="px-5 bg-body-tertiary border-0"
+          >
+            {isActive === null ? "Category" : categoryList[isActive]}
+          </Dropdown.Toggle>
+
+          <Dropdown.Menu>
+            {categoryList?.length
+              ? categoryList.map((category, index) => {
+                  return (
+                    <Dropdown.Item
+                      key={index}
+                      href="#/action-1"
+                      onClick={() => handleCategoryFilter(category, index)}
+                    >
+                      {category}
+                    </Dropdown.Item>
+                  );
+                })
+              : null}
+          </Dropdown.Menu>
+        </Dropdown>
+      </div>
+      {/* <Row>
         {categoryList?.length
           ? categoryList.map((category, index) => {
               return (
@@ -37,7 +65,7 @@ const ProductCategory = ({ setActiveCategory }) => {
               );
             })
           : null}
-      </Row>
+      </Row> */}
     </div>
   );
 };

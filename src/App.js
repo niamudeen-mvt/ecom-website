@@ -23,6 +23,8 @@ const App = () => {
         </Route>
         <Route path="/signup" element={<SignupForm />} />
         <Route path="/login" element={<LoginForm />} />
+        <Route path="/sucess" element={<div>success</div>} />
+        <Route path="/cancel" element={<div>cancel</div>} />
         <Route path="*" element={<Home />} />
       </Routes>
       <ToastContainerNotification />

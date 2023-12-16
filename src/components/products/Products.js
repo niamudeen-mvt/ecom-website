@@ -6,7 +6,7 @@ import Productlist from "./ProductList";
 import HeroSection from "../hero-section";
 
 const Products = () => {
-  const [activeCategory, setActiveCategory] = useState("men's clothing");
+  const [activeCategory, setActiveCategory] = useState("All");
   return (
     <>
       <HeroSection />
