@@ -3,14 +3,14 @@ import { Row, Col, Container } from "react-bootstrap";
 import { BsCart } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { sendNotification } from "../../utils/notifications";
-import "./productcard.css";
 import { AiOutlineClose } from "react-icons/ai";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { removeFromCart } from "../../services/api/products";
 import { useDispatch, useSelector } from "react-redux";
 import { startLoading, stopLoading } from "../../store/actions/LoadingAction";
 import Loader from "../loader";
-import { loadStripe } from "@stripe/stripe-js";
+import "./productcard.css";
+import CustomTooltip from "../shared/CustomTooltip";
 
 const ProductCard = ({ productList, refreshList, setRefreshList }) => {
   const { userId } = useLocalStorage();
@@ -55,123 +55,99 @@ const ProductCard = ({ productList, refreshList, setRefreshList }) => {
     return total;
   }, 0);
 
-  // const handleProceed = () => {
-  //   sendNotification("success", "Thank you for visiting our website");
-  // };
-
-  // payment integration
-  const makePayment = async () => {
-    const stripe = await loadStripe(
-      "pk_test_51ONYEWSGzoF127mQFjA5m9xnAUvNreO2aXxQlVIh3DCWWHBoQdIDorsY8U3fF2q0tacPZCXWSEskF1NgJvM4nyJg00i66RahPn"
-    );
-
-    const body = {
-      products: productList,
-    };
-    const headers = {
-      "Content-Type": "application/json",
-    };
-    const response = await fetch(
-      "http://localhost:5000/create-checkout-session",
-      {
-        method: "POST",
-        headers: headers,
-        body: JSON.stringify(body),
-      }
-    );
-
-    const session = await response.json();
-
-    const result = stripe.redirectToCheckout({
-      sessionId: session.id,
-    });
-
-    if (result.error) {
-      console.log(result.error);
-    }
+  const handleProceed = () => {
+    sendNotification("success", "Thank you for visiting our website");
   };
 
   if (isLoading) return <Loader />;
   return (
     <Container>
-      {productList?.length ? (
-        productList?.map((product) => {
-          return (
-            <Row
-              className="mb-5 shadow-sm  product_row"
-              key={product?.product_id}
-            >
-              <p className="m-0  p-0 px-3 flexCenter">
-                <AiOutlineClose
-                  className="ms-auto cursor"
-                  onClick={() => handleRemove(product?.product_id)}
-                />
-              </p>
-              <Col className="flexGrid col-4">
-                <img
-                  src={product?.image}
-                  alt="Product"
-                  className="img-fluid product_img"
-                />
-              </Col>
-              <Col className="col-8">
-                <div>
-                  <h1>{(product?.title).substring(0, 20)}</h1>
-                  <span>Rs. {product?.price}</span>
-                  <p>
-                    Total:{" "}
-                    {quantities[product?.product_id] * product?.price ||
-                      product?.price}
-                  </p>
-                  <div className="mb-3" key={product?.product_id}>
-                    <button
-                      className="custom-counter"
-                      disabled={product?.qty === 0 ? true : false}
-                      onClick={() => handleDecrement(product?.product_id)}
+      <section className="common_section">
+        {productList?.length ? (
+          productList?.map((product) => {
+            return (
+              <Row
+                className="mb-5 shadow-sm  product_row bg-body-tertiary"
+                key={product?.product_id}
+              >
+                <Col xs={10} className="mx-auto flexCenter">
+                  <div className="d-flex gap-5 w-100">
+                    <div
+                      className="flexCenter bg-black"
+                      style={{ height: "60px", width: "60px" }}
                     >
-                      -
-                    </button>
-                    <button
-                      className="custom-counter "
-                      style={{ backgroundColor: "white" }}
-                    >
-                      {quantities[product?.product_id] || 1}
-                    </button>
-                    <button
-                      className="custom-counter "
-                      onClick={() => handleIncrement(product?.product_id)}
-                    >
-                      +
-                    </button>
+                      <img
+                        src={product?.image}
+                        alt="Product"
+                        className="w-100 h-100"
+                      />
+                    </div>
+                    <div className="d-flex flex-column gap-1 w-100">
+                      <div className="d-flex justify-content-between">
+                        <h3>{(product?.title).substring(0, 20)}</h3>
+                        <CustomTooltip msg="Delete">
+                          <AiOutlineClose
+                            className="cursor text-black"
+                            onClick={() => handleRemove(product?.product_id)}
+                          />
+                        </CustomTooltip>
+                      </div>
+                      <span>${product?.price}</span>
+                      <p>
+                        Total:{" "}
+                        {quantities[product?.product_id] * product?.price ||
+                          product?.price}
+                      </p>
+                      <div key={product?.product_id}>
+                        <button
+                          className="custom-counter"
+                          disabled={product?.qty === 0 ? true : false}
+                          onClick={() => handleDecrement(product?.product_id)}
+                        >
+                          -
+                        </button>
+                        <button
+                          className="custom-counter "
+                          style={{ backgroundColor: "white" }}
+                        >
+                          {quantities[product?.product_id] || 1}
+                        </button>
+                        <button
+                          className="custom-counter "
+                          onClick={() => handleIncrement(product?.product_id)}
+                        >
+                          +
+                        </button>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </Col>
-            </Row>
-          );
-        })
-      ) : (
-        <div className="flexCenter flex-column min-vh-100">
-          <BsCart style={{ fontSize: "100px" }} />
-          <Link to="/" className="mt-5">
-            <button className="btn btn-outline-dark">Go to Shopping</button>
-          </Link>
-        </div>
-      )}
+                </Col>
+              </Row>
+            );
+          })
+        ) : (
+          <div className="flexCenter flex-column min-vh-100">
+            <BsCart style={{ fontSize: "100px" }} />
+            <Link to="/" className="mt-5">
+              <button className="btn btn-outline-dark">Go to Shopping</button>
+            </Link>
+          </div>
+        )}
+      </section>
 
       {productList?.length ? (
-        <div className="px-5 flexSB subtotal_container py-3 mb-5">
+        <div className="px-5 flexSB subtotal_container py-3 mb-5 bg-body-secondary">
           <p className="p-0 m-0 ms-auto">
             <span className="p-0 m-0 text-uppercase font-weight-bolder">
               SubTotal
             </span>
-            : Rs. {subtotal ? Math.floor(subtotal) : 0}
+            : $ {subtotal ? Math.floor(subtotal) : 0}
           </p>
         </div>
       ) : null}
       {productList?.length === 0 ? null : (
         <div className="text-center">
-          <button className="btn btn-outline-dark" onClick={makePayment}>
-            {/* <button className="btn btn-outline-dark" onClick={handleProceed}> */}
+          <button className="btn btn-outline-dark" onClick={handleProceed}>
             Proceed To Checkout
           </button>
         </div>

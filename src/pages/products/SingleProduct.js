@@ -20,8 +20,6 @@ const SingleProduct = () => {
     (product) => product?.product_id == id
   ))[0];
 
-  console.log(product);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -65,7 +63,7 @@ const SingleProduct = () => {
                 {product?.category}
               </p>
               <h2>{product?.title}</h2>
-              <p>Rs. {product?.price}</p>
+              <p>$ {product?.price}</p>
               <p className="mb-5">{product?.description}</p>
               {isLoading ? (
                 <button className="btn btn-outline-dark px-5">
