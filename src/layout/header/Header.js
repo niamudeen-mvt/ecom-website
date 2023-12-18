@@ -44,6 +44,15 @@ const Header = () => {
                 windowSize.width < 992 ? "flex-column" : ""
               }`}
             >
+              {/* <Link to="/test" onClick={handleNavClick}>
+                <button
+                  className={`btn  w-100 py-2 px-3 ${
+                    routeName === "/" ? "btn-dark" : "btn-outline-dark"
+                  }`}
+                >
+                  Test
+                </button>
+              </Link> */}
               <Link to="/" onClick={handleNavClick}>
                 <button
                   className={`btn  w-100 py-2 px-3 ${

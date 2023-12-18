@@ -9,6 +9,7 @@ import User from "./pages/user";
 import SingleProduct from "./pages/products/SingleProduct";
 import ProtectedRoute from "./auth/ProtectedRoute";
 import { ToastContainerNotification } from "./utils/notifications";
+// import Test from "./pages/Test";
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/cart" element={<Cart />} />
+        {/* <Route path="/test" element={<Test />} /> */}
         <Route path="/product/:id" element={<SingleProduct />} />
         <Route path="" element={<ProtectedRoute />}>
           <Route path="profile" element={<User />} />
